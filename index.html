@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#111111">
+<title>Plata en Orden · 30 días para ahorrar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+  :root {
+    --fondo: #f6f6f4; --tinta: #111111; --suave: #6b6b66; --linea: #e4e4e0;
+    --naranja: #ff4d1c; --naranja-claro: #ffe6dd; --blanco: #ffffff;
+    --verde: #2e9e5b; --amarillo: #e0a800; --rojo: #d93a2b;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { background: var(--fondo); color: var(--tinta); font-family: 'Manrope', system-ui, sans-serif; font-size: 16px; line-height: 1.5; }
+  #app { max-width: 560px; margin: 0 auto; padding: 18px 16px 80px; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; cursor: pointer; border: 0; background: none; color: inherit; }
+
+  .top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; gap: 10px; }
+  .marca { font-size: 18px; font-weight: 800; }
+  .pill { font-size: 12px; padding: 5px 11px; border-radius: 99px; background: var(--tinta); color: #fff; font-weight: 700; white-space: nowrap; }
+  .barra { height: 8px; border-radius: 99px; background: var(--linea); overflow: hidden; margin-bottom: 18px; }
+  .barra i { display: block; height: 100%; border-radius: 99px; background: var(--naranja); transition: width .3s; }
+  .volver { display: inline-flex; align-items: center; gap: 6px; font-weight: 700; font-size: 14px; color: var(--suave); padding: 6px 0; }
+
+  .card { background: var(--blanco); border-radius: 18px; padding: 18px 16px; margin-bottom: 14px; box-shadow: 0 2px 10px rgba(0,0,0,.06); }
+  .card.hero { background: var(--tinta); color: #fff; }
+  .etq { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--suave); font-weight: 700; }
+  .hero .etq { color: #b5b5ae; }
+  .num { font-size: 38px; font-weight: 800; color: var(--naranja); line-height: 1.15; margin: 4px 0 2px; }
+  .sub { font-size: 14px; color: var(--suave); }
+  .hero .sub { color: #cfcfc8; }
+  h1 { font-size: 26px; line-height: 1.15; font-weight: 800; margin: 6px 0 14px; }
+  h2 { font-size: 19px; font-weight: 800; margin: 4px 0 8px; line-height: 1.25; }
+  h3 { font-size: 15px; font-weight: 800; margin: 14px 0 6px; }
+  p { margin-bottom: 10px; }
+  p:last-child { margin-bottom: 0; }
+  ol.tarea { padding-left: 22px; }
+  ol.tarea li { margin-bottom: 8px; }
+  ol.tarea ul { padding-left: 18px; margin-top: 4px; }
+
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 18px; border-radius: 12px; font-weight: 800; font-size: 15px; background: var(--naranja); color: #fff; }
+  .btn.ancho { width: 100%; }
+  .btn.sec { background: var(--blanco); color: var(--tinta); border: 1.5px solid var(--tinta); }
+  .btn.hecho { background: var(--tinta); }
+  .btn.chico { padding: 8px 12px; font-size: 13px; border-radius: 10px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+  .chip { font-size: 14px; padding: 9px 13px; border-radius: 12px; background: var(--blanco); border: 1px solid #ddd; font-weight: 700; }
+  .medallas { display: flex; gap: 10px; flex-wrap: wrap; }
+  .med { width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; font-size: 22px; background: var(--linea); }
+  .med.on { background: var(--naranja); }
+  .dias { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
+  .dias a { aspect-ratio: 1; border-radius: 12px; display: grid; place-items: center; font-weight: 800; font-size: 14px; background: var(--blanco); border: 1px solid #ddd; }
+  .dias a.ok { background: var(--tinta); color: #fff; border-color: var(--tinta); }
+  .dias a.hoy { border: 2px solid var(--naranja); color: var(--naranja); }
+  .aviso { background: var(--naranja-claro); border-radius: 14px; padding: 12px 14px; margin-bottom: 14px; font-size: 14px; }
+
+  /* Calculadoras */
+  .campo { margin-bottom: 10px; }
+  .campo label { display: block; font-size: 13px; font-weight: 700; color: var(--suave); margin-bottom: 4px; }
+  input, select, textarea { font: inherit; font-size: 16px; width: 100%; padding: 10px 12px; border-radius: 10px; border: 1.5px solid #d6d6d0; background: #fff; color: var(--tinta); }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--naranja); }
+  textarea { min-height: 90px; resize: vertical; }
+  .fila { display: grid; gap: 6px; align-items: center; margin-bottom: 8px; }
+  .fila .x { width: 34px; height: 40px; border-radius: 10px; font-size: 20px; color: var(--suave); }
+  .caja { border: 1px solid var(--linea); border-radius: 14px; padding: 10px; margin-bottom: 10px; background: #fbfbf9; }
+  .caja .fila { margin-bottom: 6px; }
+  .mini { display: grid; gap: 6px; }
+  .mini label span { display: block; font-size: 11px; color: var(--suave); font-weight: 700; text-transform: uppercase; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .mini input, .mini select { padding: 9px 8px; }
+  .dos { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-items: end; }
+  .res { border-top: 1px dashed var(--linea); margin-top: 6px; padding-top: 6px; }
+  .linea { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; border-bottom: 1px solid #f0f0ec; font-size: 15px; }
+  .linea:last-child { border-bottom: 0; }
+  .linea b { white-space: nowrap; }
+  .total { font-weight: 800; font-size: 17px; }
+  .neg { color: var(--rojo); }
+  .pos { color: var(--verde); }
+  .barras { display: grid; gap: 6px; margin-top: 8px; }
+  .bar { display: grid; grid-template-columns: 78px 1fr 96px; gap: 8px; align-items: center; font-size: 13px; }
+  .bar span.b { height: 14px; border-radius: 99px; background: var(--naranja); min-width: 2px; }
+  .bar span.b.alivio { background: var(--tinta); }
+  .bar em { font-style: normal; text-align: right; font-weight: 700; }
+  .sem { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; }
+  .nota { font-size: 13px; color: var(--suave); margin-top: 8px; }
+  .tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 14px; }
+  .tabs a { text-align: center; padding: 9px 4px; border-radius: 12px; font-weight: 800; font-size: 13px; background: var(--blanco); border: 1px solid #ddd; }
+  .tabs a.on { background: var(--tinta); color: #fff; border-color: var(--tinta); }
+
+  .toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: var(--tinta); color: #fff; padding: 14px 18px; border-radius: 14px; font-weight: 700; box-shadow: 0 10px 30px rgba(0,0,0,.25); max-width: 92%; text-align: center; z-index: 9; }
+  .cert { text-align: center; padding: 36px 20px; border: 3px solid var(--tinta); }
+  .cert .num { font-size: 30px; }
+  .pie { text-align: center; margin-top: 28px; font-size: 13px; color: var(--suave); }
+  .pie button { text-decoration: underline; font-size: 13px; color: var(--suave); }
+  @media print {
+    body { background: #fff; }
+    .no-print { display: none !important; }
+    .card { box-shadow: none; }
+  }
+
+  .dias { grid-template-columns: repeat(6, 1fr); }
+  .estado { font-size: 13px; font-weight: 700; }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+// Calculadoras de "30 días para ahorrar" (upsell de Plata en Orden).
+// Solo cuentas: no guardan nada ni tocan la pantalla. Montos en pesos, redondeados al peso.
+(function (raiz) {
+  'use strict';
+
+  function num(v) { const n = Number(v); return Number.isFinite(n) ? n : 0; }
+  const HITOS = [0.25, 0.5, 0.75, 1];
+
+  // Día 1 y 29. Meta: { nombre, monto, meses, guardado }. Cuánto apartar por mes para llegar.
+  function planMeta(m) {
+    const monto = num(m.monto), guardado = num(m.guardado), meses = Math.max(1, num(m.meses) || 1);
+    const falta = Math.max(0, monto - guardado);
+    return {
+      monto: Math.round(monto), guardado: Math.round(guardado), falta: Math.round(falta),
+      porMes: Math.ceil(falta / meses),
+      avance: monto > 0 ? Math.min(1, guardado / monto) : 0,
+      hitos: HITOS.filter(h => monto > 0 && guardado >= monto * h), // día 27: un gusto en cada 25%
+    };
+  }
+
+  // Día 9 y 25. Cuánto es un porcentaje de lo que cobrás.
+  function porcentaje(cobro, pct) { return Math.round(num(cobro) * num(pct) / 100); }
+
+  // Día 9. Tabla para comparar porcentajes.
+  function tablaPorcentajes(cobro, opciones) {
+    return (opciones || [3, 5, 10]).map(p => ({ pct: p, porMes: porcentaje(cobro, p), porAnio: porcentaje(cobro, p) * 12 }));
+  }
+
+  // Día 12. La mitad del aumento va a la meta.
+  function mitadDelAumento(aumento) {
+    const a = Math.round(num(aumento));
+    const meta = Math.round(a / 2);
+    return { aMeta: meta, paraVos: a - meta };
+  }
+
+  // Día 4. Redondeo al millar de arriba: [montos] -> diferencia total.
+  function redondeo(gastos, a) {
+    const paso = num(a) || 1000;
+    return (gastos || []).reduce((t, g) => {
+      const x = num(g);
+      return t + (x > 0 ? Math.ceil(x / paso) * paso - x : 0);
+    }, 0);
+  }
+
+  // Días 19 y 26. Gastos del año (cumpleaños, meses caros): total y cuánto apartar por mes.
+  function apartadoMensual(lista) {
+    const total = Math.round((lista || []).reduce((t, x) => t + num(x.monto), 0));
+    return { total, porMes: Math.ceil(total / 12) };
+  }
+
+  // Día 13. Compras en espera: { que, desde (ISO) }. Listas para decidir después de 48 horas.
+  function esperaLista(item, ahora) {
+    const t = ahora ? new Date(ahora).getTime() : Date.now();
+    return t - new Date(item.desde).getTime() >= 48 * 3600 * 1000;
+  }
+
+  // Contador de los 30 días: registros { monto }.
+  function totalAhorrado(registros) {
+    return Math.round((registros || []).reduce((t, r) => t + num(r.monto), 0));
+  }
+
+  const api = { planMeta, porcentaje, tablaPorcentajes, mitadDelAumento, redondeo, apartadoMensual, esperaLista, totalAhorrado };
+  if (typeof module !== 'undefined' && module.exports) module.exports = api;
+  else raiz.Ahorro = api;
+})(typeof window !== 'undefined' ? window : this);
+
+</script>
+<script>
+(function () {
+  'use strict';
+  const CONTENIDO = {"semanas": [{"n": 1, "titulo": "Encontrar plata que ya tenés"}, {"n": 2, "titulo": "Ahorrar primero, gastar después"}, {"n": 3, "titulo": "Gastar menos sin vivir peor"}, {"n": 4, "titulo": "Que dure"}], "dias": [{"n": 1, "semana": 1, "titulo": "Tu meta con nombre", "reto": ["\"Ahorrar\" a secas no motiva a nadie. Ahorrar para algo concreto, sí. Hoy le ponés nombre y número a tu meta."], "como": ["Abrí la calculadora de meta.", "Escribí para qué ahorrás: el colchón, unas vacaciones, arreglar el auto.", "Poné cuánto necesitás y para cuándo. La app te dice cuánto apartar por mes."], "ejemplo": ["Tomi quería \"ahorrar algo\". Cuando escribió \"vacaciones en la costa, $600.000, para enero\", la app le dijo $200.000 por mes. Le pareció mucho, movió la fecha a febrero y le quedó un número que sí podía."], "medalla": null}, {"n": 2, "semana": 1, "titulo": "El día sin gastar", "reto": ["Un día entero sin gastar un peso, salvo lo fijo que ya estaba pagado. Sirve para darte cuenta de cuántas compras hacés en automático."], "como": ["Elegí el día: mejor uno de semana, que es más fácil.", "Prepará la noche anterior lo que necesites: comida, la SUBE cargada, el termo.", "A la noche anotá en la app cuántas veces tuviste ganas de comprar algo."], "ejemplo": ["Bel contó 6 \"ganas de comprar\" en un solo día: un café, una galletita, una remera en oferta en el celular. No compró ninguna, y a la noche no extrañaba ninguna."], "medalla": null}, {"n": 3, "semana": 1, "titulo": "Vendé algo que no usás", "reto": ["En casi todas las casas hay plata guardada en forma de cosas que nadie usa. Hoy convertís una en ahorro."], "como": ["Recorré el placard, la baulera o el garage.", "Elegí una cosa que no uses hace más de un año.", "Sacale una buena foto y publicala en un grupo de venta de tu barrio o en una app de compraventa.", "Lo que entre va entero a tu meta."], "ejemplo": ["Ceci vendió un cochecito de bebé que tenía guardado desde que su hijo empezó a caminar. Con eso juntó en un día lo que pensaba ahorrar en un mes."], "medalla": null}, {"n": 4, "semana": 1, "titulo": "El vuelto que no ves", "reto": ["Redondear para arriba cada gasto y guardar la diferencia. Son montos tan chicos que no los sentís, pero se suman."], "como": ["Cada vez que gastes hoy, redondeá el monto al millar de arriba.", "Anotá la diferencia en la app.", "A la noche, pasá el total a tu meta."], "ejemplo": ["Fran gastó $7.300 en el súper, $2.600 en la verdulería y $1.800 en el kiosco. Redondeando juntó $1.300 en un día sin hacer ningún esfuerzo."], "medalla": null}, {"n": 5, "semana": 1, "titulo": "La heladera primero", "reto": ["Hoy se cocina solo con lo que ya hay en casa. Nada de súper ni delivery."], "como": ["Abrí la heladera, el freezer y la alacena.", "Armá las comidas del día con lo que encuentres, aunque sea una mezcla rara.", "Calculá cuánto habrías gastado comprando y anotalo como ahorro."], "ejemplo": ["Juli encontró arroz, dos huevos, media calabaza y un paquete de lentejas olvidado. Salió un guiso y una tortilla. Se ahorró el delivery del jueves y además vació la alacena."], "medalla": null}, {"n": 6, "semana": 1, "titulo": "Una suscripción menos", "reto": ["Si en los 28 días ya diste de baja las que no usabas, hoy vas por la que menos usaste en el último mes."], "como": ["Mirá tus débitos automáticos.", "Elegí el que menos usaste.", "Dalo de baja por un mes. Si lo extrañás, lo volvés a contratar."], "ejemplo": ["Ale tenía dos plataformas de música, una paga por él y otra incluida en el plan del celular. Dio de baja la paga y no notó la diferencia."], "medalla": null}, {"n": 7, "semana": 1, "titulo": "Repaso de la semana", "reto": ["Sumar todo lo que juntaste en 7 días, sin contar el sueldo."], "como": ["Abrí el contador de la app.", "Mirá cuánto juntaste con la venta, el redondeo, la heladera y la suscripción.", "Anotá cuál de los retos te resultó más fácil: ese lo podés repetir."], "ejemplo": ["A Nico le dio $64.000 en una semana. Lo que más le sorprendió fue la venta: tenía una bici fija juntando polvo hacía dos años."], "medalla": "Encontré plata que no veía"}, {"n": 8, "semana": 2, "titulo": "Pagate a vos primero", "reto": ["La mayoría ahorra lo que sobra a fin de mes, y casi nunca sobra. Hoy das vuelta el orden: primero ahorrás y después gastás."], "como": ["Mirá en la app tu día de cobro.", "Decidí que ese día, antes de pagar cualquier otra cosa, una parte va a la meta.", "Escribí en la app cuánto va a ser."], "ejemplo": ["Mora siempre decía \"si sobra, ahorro\". Nunca sobraba. Empezó a pasar $30.000 el día que cobraba, antes de todo. El resto del mes se acomodó solo a lo que quedaba."], "medalla": null}, {"n": 9, "semana": 2, "titulo": "Elegí tu porcentaje", "reto": ["Ahorrar un porcentaje es más fácil de sostener que un monto fijo, porque crece cuando cobrás más."], "como": ["Abrí la calculadora de meta.", "Probá distintos porcentajes de tu sueldo: 3%, 5%, 10%.", "Elegí el que no te ahogue. Mejor empezar chico y sostenerlo."], "ejemplo": ["Gabi quiso empezar con el 20% y al segundo mes no llegaba. Bajó al 5% y lo sostuvo un año entero. Al final había juntado más que con el plan ambicioso."], "medalla": null}, {"n": 10, "semana": 2, "titulo": "Una cuenta solo para ahorrar", "reto": ["Si la plata de la meta está mezclada con la del día a día, se gasta sin querer. Hoy la separás."], "como": ["Abrí una cuenta, una caja de ahorro o un espacio aparte en tu billetera virtual, solo para la meta.", "Ponele el nombre de tu meta, si te deja.", "Pasá ahí lo que juntaste la semana pasada."], "ejemplo": ["Santi tenía todo en la misma cuenta y \"el ahorro\" desaparecía con las compras del mes. Cuando lo separó y le puso de nombre \"Bariloche\", le dio culpa tocarlo."], "medalla": null}, {"n": 11, "semana": 2, "titulo": "Automatizalo", "reto": ["Todo lo que depende de acordarse, falla. Hoy hacés que el ahorro pase solo."], "como": ["Entrá a tu banco o billetera.", "Programá una transferencia automática a tu cuenta de ahorro para el día de cobro.", "Si tu banco no lo permite, poné una alarma en el celular ese día."], "ejemplo": ["Lola programó la transferencia y se olvidó del tema. A los tres meses entró a la cuenta de ahorro y tenía más de lo que esperaba. Dice que fue lo mejor que hizo."], "medalla": null}, {"n": 12, "semana": 2, "titulo": "El aumento que no se gasta", "reto": ["Cuando te aumentan el sueldo, el gasto sube solo, casi sin darte cuenta. Hoy decidís de antemano qué pasa con el próximo aumento."], "como": ["Escribí en la app: \"la mitad de mi próximo aumento va a la meta\".", "Cuando llegue, subí la transferencia automática en ese monto.", "La otra mitad la disfrutás sin culpa."], "ejemplo": ["A Lucía le aumentaron $60.000. Subió $30.000 la transferencia al ahorro y usó los otros $30.000 para darse un gusto. Por primera vez, el aumento se notó en algo."], "medalla": null}, {"n": 13, "semana": 2, "titulo": "La regla de las 48 horas", "reto": ["Antes de cualquier compra que no estaba en el plan, esperás dos días. Si después de dos días la seguís queriendo, adelante."], "como": ["Cuando quieras comprar algo, anotalo en la lista de \"48 horas\" de la app.", "Pasados dos días, la app te muestra la lista cuando la abrís.", "Decidí con la cabeza fría."], "ejemplo": ["Rami anotó unas zapatillas, un parlante y una campera. A los dos días solo seguía queriendo la campera. Se ahorró las otras dos compras sin sentir que se privaba de algo."], "medalla": null}, {"n": 14, "semana": 2, "titulo": "Repaso de la semana", "reto": ["Revisar si este mes ahorraste antes de gastar."], "como": ["Mirá el contador de la app.", "Respondé: ¿la transferencia de ahorro salió antes que los gastos?", "Si no, mové la fecha de la transferencia al mismo día que cobrás."], "ejemplo": ["Agos tenía la transferencia programada para el día 15, pero cobraba el 5. Para el 15 ya no había nada. La pasó al día 5 y el problema se terminó."], "medalla": "Primero yo"}, {"n": 15, "semana": 3, "titulo": "El súper más barato de tu zona", "reto": ["La misma lista puede salir bastante distinto según dónde la compres."], "como": ["Armá una lista con 10 productos que comprás siempre.", "Fijate el precio en dos súper distintos, en persona o en sus páginas.", "Anotá en la app cuál salió más barato y por cuánto."], "ejemplo": ["Vicky comparó el súper de la esquina con un mayorista a 10 cuadras. En los mismos 10 productos la diferencia le alcanzaba para una compra más por mes."], "medalla": null}, {"n": 16, "semana": 3, "titulo": "Segunda marca", "reto": ["Probar la segunda marca en 3 productos de todos los días. Muchas veces la diferencia está solo en el paquete."], "como": ["Elegí 3 productos: por ejemplo, arroz, lavandina y galletitas.", "Comprá la segunda marca o la marca del súper.", "Si alguno no te gusta, volvés a la de siempre. Los que sí, se quedan."], "ejemplo": ["En la casa de Mati nadie notó que el arroz y el detergente habían cambiado. El café sí lo notaron, y volvió. Dos de tres quedaron."], "medalla": null}, {"n": 17, "semana": 3, "titulo": "Compras en grupo", "reto": ["Comprar por mayor sale más barato, pero no siempre tenés lugar o plata para hacerlo por tu cuenta. En grupo, sí."], "como": ["Pensá en familia, amigos o vecinos que compren lo mismo que vos.", "Proponé comprar juntos algo que todos usan: aceite, yerba, pañales, artículos de limpieza.", "Repartan la compra y anotá en la app cuánto te ahorraste."], "ejemplo": ["Tres vecinas del edificio de Romi empezaron a comprar la yerba y los artículos de limpieza por bulto en un mayorista. Cada una paga menos y van una vez por mes, turnándose."], "medalla": null}, {"n": 18, "semana": 3, "titulo": "Salidas que no cuestan", "reto": ["Salir no tiene por qué ser caro. Hoy planeás un plan lindo y gratis, o casi."], "como": ["Buscá actividades gratis en tu ciudad: plazas, ferias, museos con días gratis, recitales al aire libre.", "Elegí una para este fin de semana.", "Si es con comida, llevala de casa."], "ejemplo": ["Pato y su pareja cambiaron la cena afuera del sábado por un picnic en el parque con mate y algo casero. Fue de las salidas que más disfrutaron en el mes."], "medalla": null}, {"n": 19, "semana": 3, "titulo": "Regalos con tope", "reto": ["Los cumpleaños llegan todo el año y siempre toman por sorpresa. Hoy los ponés en una lista con un monto."], "como": ["Anotá en la app los cumpleaños importantes del año.", "Poné al lado un monto fijo para cada regalo.", "Sumá el total y dividilo por 12: eso es lo que apartás por mes para regalos."], "ejemplo": ["Kari tenía 14 cumpleaños en el año, entre familia y amigos. Cuando los sumó, entendió por qué algunos meses no llegaba. Ahora aparta un poco por mes y no la agarran desprevenida."], "medalla": null}, {"n": 20, "semana": 3, "titulo": "Los cobros escondidos", "reto": ["Muchos bancos y tarjetas cobran comisiones que nadie mira: mantenimiento de cuenta, renovación de la tarjeta, seguros que no pediste."], "como": ["Revisá el resumen de tu cuenta y de tu tarjeta.", "Buscá cargos como \"mantenimiento\", \"comisión\", \"renovación anual\" o \"seguro\".", "Llamá o escribí al banco y preguntá cómo sacarlos o si te pueden bonificar."], "ejemplo": ["Edu pagaba todos los meses un seguro de la tarjeta que nunca había pedido. Lo dio de baja con una llamada de 10 minutos."], "medalla": null}, {"n": 21, "semana": 3, "titulo": "Repaso de la semana", "reto": ["Ver cuánto bajó tu gasto esta semana sin que tu vida sea peor."], "como": ["Sumá en la app lo que ahorraste con el súper, la segunda marca, las compras en grupo y los cobros escondidos.", "Multiplicalo por 4 para ver cuánto sería en un mes.", "Pasá lo de esta semana a tu meta."], "ejemplo": ["A Jose le dio $22.000 en la semana. Multiplicado por 4, era más de lo que ahorraba antes en todo un mes."], "medalla": "Gasto menos, vivo igual"}, {"n": 22, "semana": 4, "titulo": "Tu ahorro contra los aumentos", "reto": ["La plata guardada sin moverse pierde valor cuando los precios suben. No hace falta ser experto para preguntar qué opciones tenés."], "como": ["Entrá a tu banco o billetera y fijate si ofrecen alguna opción para tu ahorro.", "Preguntá tres cosas: cuánto rinde, cuándo podés sacar la plata y qué riesgo tiene.", "Si no entendés algo, no lo hagas. Mejor preguntarle a alguien de confianza que sepa."], "ejemplo": ["Luciana tenía su ahorro en la cuenta, sin moverse, desde hacía un año. Preguntó en su banco, entendió las opciones y eligió una en la que podía sacar la plata cuando quisiera."], "medalla": null}, {"n": 23, "semana": 4, "titulo": "Metas cortas y largas", "reto": ["No todas las metas tienen el mismo plazo. Si las mezclás, la larga se come a la corta o al revés."], "como": ["Abrí la calculadora de meta y sumá una segunda meta.", "Una corta (en meses) y una larga (más de un año).", "Repartí tu ahorro mensual entre las dos."], "ejemplo": ["Mai ahorraba para las vacaciones y para cambiar el auto en la misma cuenta. Cada verano se gastaba \"el ahorro del auto\" sin darse cuenta. Separó las dos metas y las dos empezaron a avanzar."], "medalla": null}, {"n": 24, "semana": 4, "titulo": "Un mes de colchón", "reto": ["Si todavía no tenés un mes de gastos fijos guardado para emergencias, esa es tu meta número uno."], "como": ["Mirá cuánto suman tus fijos de un mes. Si hiciste los 28 días, ya lo tenés en la app.", "Si tu colchón no llega, ponelo como primera meta, antes que cualquier otra.", "Las otras metas siguen, pero con menos aporte hasta completarlo."], "ejemplo": ["Fede estaba ahorrando para un viaje y se le rompió el celular. Tuvo que usar la plata del viaje. Ahí entendió por qué el colchón va primero."], "medalla": null}, {"n": 25, "semana": 4, "titulo": "Ahorrar con plata variable", "reto": ["Si cobrás distinto cada mes, un monto fijo no funciona. Un porcentaje, sí."], "como": ["Elegí un porcentaje fijo de cada cobro, por chico que sea.", "En los meses buenos, sumá un extra a la meta.", "En los meses flojos, ahorrá igual el porcentaje, aunque sea poco."], "ejemplo": ["Lu trabaja por su cuenta y hay meses que cobra el doble que otros. Ahorra el 10% de cada cobro. En los meses buenos junta mucho y en los flojos, poco, pero nunca cero."], "medalla": null}, {"n": 26, "semana": 4, "titulo": "El mes caro", "reto": ["Hay meses que todos los años vienen pesados: marzo con el colegio, diciembre con las fiestas, el mes del seguro del auto. Si los conocés, los podés preparar."], "como": ["Anotá en la app tus meses caros y cuánto gastás de más en cada uno.", "Sumá el total y dividilo por 12.", "Apartá ese monto todos los meses, así el mes caro ya viene pago."], "ejemplo": ["Clau sabía que marzo era el peor mes del año, con útiles y matrícula. Empezó a apartar un poco desde abril del año anterior. Este marzo pasó sin cuotas."], "medalla": null}, {"n": 27, "semana": 4, "titulo": "Celebrar sin romper la meta", "reto": ["Ahorrar sin ningún premio cansa. Hoy decidís cómo vas a festejar cada avance, sin que el festejo se coma el ahorro."], "como": ["Elegí un gusto chico para cada 25% de la meta: un helado, una salida, algo que te guste.", "Anotalo en la app.", "Cuando llegues a cada parte, te lo das sin culpa."], "ejemplo": ["Sol se prometió una pizza con amigos al llegar a la mitad de su meta. La esperó dos meses y la disfrutó como nunca."], "medalla": null}, {"n": 28, "semana": 4, "titulo": "Contáselo a alguien", "reto": ["Decir tu meta en voz alta a alguien de confianza hace más difícil abandonarla."], "como": ["Elegí a alguien: tu pareja, un amigo, alguien de la familia.", "Contale tu meta y para cuándo.", "Pedile que te pregunte cómo vas una vez por mes."], "ejemplo": ["Hernán le contó a su hermano que estaba ahorrando para el colchón. Cada vez que se veían, el hermano le preguntaba \"¿y, cuánto vas?\". Le daba vergüenza decir \"nada\", así que siguió."], "medalla": null}, {"n": 29, "semana": 4, "titulo": "Tu plan de ahorro del año", "reto": ["Juntar todo lo que hiciste en un plan simple para los próximos 12 meses."], "como": ["Abrí la calculadora de meta.", "Revisá tus metas: monto, fecha y aporte por mes.", "Confirmá que la transferencia automática coincide con el plan.", "Guardalo."], "ejemplo": ["Vane terminó con tres metas: el colchón, las vacaciones y el mes caro de marzo. Las tres con aporte automático. Dice que es la primera vez que siente que la plata trabaja para ella y no al revés."], "medalla": null}, {"n": 30, "semana": 4, "titulo": "Cierre", "reto": ["Mirar todo lo que juntaste en 30 días y elegir tu próxima meta."], "como": ["Abrí el contador de la app y mirá el total.", "Elegí los 3 retos que más te sirvieron y repetilos el mes que viene.", "Si ya cumpliste tu meta, poné la próxima."], "ejemplo": ["Tomi, el del día 1, juntó $180.000 en 30 días entre lo que vendió, lo que recortó y la transferencia automática. Le faltaba para las vacaciones, pero por primera vez veía que iba a llegar."], "medalla": "Ahorrar ya es un hábito"}]};
+  const A = window.Ahorro;
+  const CLAVE = 'plataEnOrden.ahorro.v1';
+  const TOTAL = CONTENIDO.dias.length;
+  const app = document.getElementById('app');
+
+  const HERR = { metas: 'Metas', contador: 'Contador', herramientas: 'Herramientas' };
+  const HERR_DIA = { 1: 'metas', 2: 'contador', 3: 'contador', 4: 'herramientas', 5: 'contador', 6: 'contador', 7: 'contador',
+    8: 'metas', 9: 'herramientas', 10: 'contador', 11: 'metas', 12: 'herramientas', 13: 'herramientas', 14: 'contador',
+    15: 'contador', 16: 'contador', 17: 'contador', 18: 'contador', 19: 'herramientas', 20: 'contador', 21: 'contador',
+    22: 'metas', 23: 'metas', 24: 'metas', 25: 'herramientas', 26: 'herramientas', 27: 'metas', 28: 'metas', 29: 'metas', 30: 'contador' };
+  const REPASOS = [7, 14, 21, 30];
+
+  // ---------- Estado (queda solo en este celular) ----------
+  function inicial() {
+    return { hechos: {}, notas: {}, metas: [], registros: [], cobro: 0, pctPropio: 0, aumento: 0,
+      redondeo: [], espera: [], cumples: [], mesesCaros: [] };
+  }
+  let E = inicial();
+  try { const g = localStorage.getItem(CLAVE); if (g) E = Object.assign(inicial(), JSON.parse(g)); } catch (e) { /* sin almacenamiento */ }
+  function guardar() { try { localStorage.setItem(CLAVE, JSON.stringify(E)); } catch (e) { /* nada */ } }
+  function leer(ruta) { return ruta.split('.').reduce((o, k) => (o == null ? o : o[k]), E); }
+  function escribir(ruta, v) { const p = ruta.split('.'); const u = p.pop(); p.reduce((x, k) => x[k], E)[u] = v; }
+
+  // ---------- Formato ----------
+  const nf = new Intl.NumberFormat('es-AR', { maximumFractionDigits: 0 });
+  function plata(n) { n = Math.round(Number(n) || 0); return (n < 0 ? '− $' : '$') + nf.format(Math.abs(n)); }
+  function aNumero(t) {
+    let s = String(t).replace(/[$\s%]/g, '');
+    if (/,/.test(s)) s = s.replace(/\./g, '').replace(',', '.');
+    else if (/^\d{1,3}(\.\d{3})+$/.test(s)) s = s.replace(/\./g, '');
+    const n = parseFloat(s); return Number.isFinite(n) ? n : 0;
+  }
+  function verNum(n) { return n ? nf.format(n) : ''; }
+  function esc(t) { return String(t == null ? '' : t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+  function lineas(items) { return items.map(([a, b, cls]) => `<div class="linea ${cls || ''}"><span>${a}</span><b>${b}</b></div>`).join(''); }
+
+  function hechos() { return Object.keys(E.hechos).length; }
+  function diaDeHoy() { for (let n = 1; n <= TOTAL; n++) if (!E.hechos[n]) return n; return TOTAL; }
+  function esperasListas() { return E.espera.filter(x => x.que && A.esperaLista(x)); }
+
+  // ---------- Piezas ----------
+  let resultados = null;
+  function cabecera(extra) {
+    const h = hechos();
+    return `<div class="top"><a class="marca" href="#/inicio">30 días para ahorrar</a><span class="pill">${h === TOTAL ? '¡Terminaste!' : 'Día ' + diaDeHoy() + ' de ' + TOTAL}</span></div>
+      <div class="barra"><i style="width:${(h / TOTAL) * 100}%"></i></div>${extra || ''}`;
+  }
+  function control(ruta, c, valor) {
+    if (c.tipo === 'txt') return `<input data-path="${ruta}" data-tipo="txt" value="${esc(valor)}" placeholder="${esc(c.ph || '')}">`;
+    return `<input data-path="${ruta}" data-tipo="num" inputmode="decimal" value="${esc(verNum(valor))}" placeholder="${esc(c.ph || '0')}">`;
+  }
+  function campo(ruta, etiqueta, ph, tipo) { return `<div class="campo"><label>${etiqueta}</label>${control(ruta, { tipo, ph }, leer(ruta))}</div>`; }
+  const quitar = (r, i) => `<button class="x" data-quitar="${r}.${i}" aria-label="Quitar">×</button>`;
+  function lista(ruta, campos, textoAgregar, extraFila) {
+    const filas = leer(ruta) || [];
+    let cuerpo;
+    if (campos.length === 1) {
+      cuerpo = filas.map((f, i) => `<div class="fila" style="grid-template-columns:1fr 34px">${control(`${ruta}.${i}.${campos[0].k}`, campos[0], f[campos[0].k])}${quitar(ruta, i)}</div>${extraFila ? extraFila(f, i) : ''}`).join('');
+    } else {
+      const [p, ...resto] = campos;
+      cuerpo = filas.map((f, i) => `<div class="caja">
+        <div class="fila" style="grid-template-columns:1fr 34px">${control(`${ruta}.${i}.${p.k}`, p, f[p.k])}${quitar(ruta, i)}</div>
+        <div class="mini" style="grid-template-columns:repeat(${resto.length}, 1fr)">${resto.map(c => `<label><span>${c.titulo}</span>${control(`${ruta}.${i}.${c.k}`, c, f[c.k])}</label>`).join('')}</div>
+        ${extraFila ? extraFila(f, i) : ''}</div>`).join('');
+    }
+    return cuerpo + `<button class="btn chico sec" data-agregar="${ruta}">+ ${textoAgregar}</button>`;
+  }
+  const NUEVAS = {
+    metas: () => ({ nombre: '', monto: 0, meses: 0, guardado: 0 }),
+    registros: () => ({ motivo: '', monto: 0 }),
+    redondeo: () => ({ monto: 0 }),
+    espera: () => ({ que: '', desde: new Date().toISOString() }),
+    cumples: () => ({ nombre: '', monto: 0 }),
+    mesesCaros: () => ({ nombre: '', monto: 0 }),
+  };
+
+  // ---------- Pantallas ----------
+  function vistaInicio() {
+    const hoy = diaDeHoy();
+    const d = CONTENIDO.dias[hoy - 1];
+    const sem = CONTENIDO.semanas[d.semana - 1];
+    const fin = hechos() === TOTAL;
+    const listas = esperasListas();
+    const avisos = listas.length ? `<div class="aviso">Tenés ${listas.length === 1 ? 'una compra' : listas.length + ' compras'} que ya pasaron las 48 horas. <a href="#/h/herramientas"><b>Decidir ahora</b></a></div>` : '';
+    const metaPrincipal = E.metas.find(m => m.monto > 0);
+    let subHero = 'Anotá lo que ahorrás cada día en el contador.';
+    if (metaPrincipal) { const p = A.planMeta(metaPrincipal); subHero = `Meta "${esc(metaPrincipal.nombre || 'mi meta')}": ${Math.round(p.avance * 100)}% · faltan ${plata(p.falta)}`; }
+    const tarea = fin
+      ? `<div class="card"><div class="etq">${TOTAL} de ${TOTAL}</div><h2>¡Ahorrar ya es un hábito!</h2><p class="sub">Elegí tu próxima meta y repetí los retos que más te sirvieron.</p></div>`
+      : `<div class="card"><div class="etq">${esc(sem.titulo)} · Reto de hoy · 5 min</div><h2>Día ${hoy}. ${esc(d.titulo)}</h2><div class="sub">${d.reto[0]}</div><a class="btn" href="#/dia/${hoy}" style="margin-top:12px">Empezar</a></div>`;
+    const medallas = REPASOS.map(r => `<span class="med ${E.hechos[r] ? 'on' : ''}" title="${esc(CONTENIDO.dias[r - 1].medalla || '')}">${E.hechos[r] ? '🏅' : '🔒'}</span>`).join('');
+    const dias = CONTENIDO.dias.map(x => `<a href="#/dia/${x.n}" class="${E.hechos[x.n] ? 'ok' : ''} ${x.n === hoy && !fin ? 'hoy' : ''}">${x.n}</a>`).join('');
+    app.innerHTML = cabecera() + avisos +
+      `<div class="card hero"><div class="etq">Ahorrado en estos 30 días</div><div class="num">${plata(A.totalAhorrado(E.registros))}</div><div class="sub">${subHero}</div></div>` + tarea +
+      `<div class="chips">${Object.keys(HERR).map(k => `<a class="chip" href="#/h/${k}">${HERR[k]}</a>`).join('')}</div>
+      <div class="card"><div class="etq">Tus medallas</div><div class="medallas" style="margin-top:10px">${medallas}</div></div>
+      <div class="card"><div class="etq">Los 30 días</div><div class="dias" style="margin-top:12px">${dias}</div></div>
+      <div class="pie no-print">Tus datos se guardan solo en este celular.<br><button data-accion="borrar">Borrar mis datos</button></div>`;
+  }
+
+  function vistaDia(n) {
+    const d = CONTENIDO.dias[n - 1];
+    if (!d) { location.hash = '#/inicio'; return; }
+    const sem = CONTENIDO.semanas[d.semana - 1];
+    const herr = HERR_DIA[n];
+    const hecho = !!E.hechos[n];
+    app.innerHTML = cabecera(`<a class="volver" href="#/inicio">← Inicio</a>`) + `
+      <div class="etq" style="margin-top:6px">${esc(sem.titulo)} · Día ${n} de ${TOTAL}</div>
+      <h1>${esc(d.titulo)}</h1>
+      <div class="card"><div class="etq">El reto</div><div style="margin-top:6px">${d.reto.map(p => `<p>${p}</p>`).join('')}</div></div>
+      <div class="card"><div class="etq">Cómo hacerlo · 5 minutos</div><ol class="tarea" style="margin-top:8px">${d.como.map(c => `<li>${c}</li>`).join('')}</ol>
+        ${herr ? `<a class="btn sec ancho" href="#/h/${herr}" style="margin-top:8px">Abrir ${HERR[herr].toLowerCase()}</a>` : ''}</div>
+      <div class="card"><div class="etq">Ejemplo</div><div style="margin-top:6px">${d.ejemplo.map(p => `<p>${p}</p>`).join('')}</div></div>
+      <div class="card"><div class="etq">¿Ahorraste algo con este reto?</div>
+        <div class="dos" style="margin-top:8px"><div class="campo"><label>Monto</label><input id="rapido" inputmode="decimal" placeholder="0"></div>
+        <div class="campo"><button class="btn ancho" data-accion="anotar" data-dia="${n}">Sumar al contador</button></div></div>
+        <textarea data-path="notas.${n}" data-tipo="txt" placeholder="Cómo te fue. Queda solo en tu celular.">${esc(E.notas[n] || '')}</textarea></div>
+      <button class="btn ancho ${hecho ? 'hecho' : ''}" data-accion="hecho" data-dia="${n}">${hecho ? '✓ Día ' + n + ' hecho' : 'Marcar el día ' + n + ' como hecho'}</button>
+      <div style="display:flex;justify-content:space-between;margin-top:14px">
+        ${n > 1 ? `<a class="volver" href="#/dia/${n - 1}">← Día ${n - 1}</a>` : '<span></span>'}
+        ${n < TOTAL ? `<a class="volver" href="#/dia/${n + 1}">Día ${n + 1} →</a>` : ''}</div>`;
+  }
+
+  function tabs(actual) { return `<div class="tabs" style="grid-template-columns:repeat(3,1fr)">${Object.keys(HERR).map(k => `<a href="#/h/${k}" class="${k === actual ? 'on' : ''}">${HERR[k]}</a>`).join('')}</div>`; }
+
+  function pantallaMetas() {
+    return `<h1>Tus metas</h1>
+      <div class="card"><p class="sub">Para qué ahorrás, cuánto y en cuántos meses (días 1, 23 y 29). Podés tener una corta y una larga.</p>
+        ${lista('metas', [{ k: 'nombre', tipo: 'txt', ph: 'Vacaciones en la costa' }, { k: 'monto', titulo: 'Cuánto', ph: '600.000' }, { k: 'meses', titulo: 'En meses', ph: '3' }, { k: 'guardado', titulo: 'Ya tenés', ph: '0' }], 'meta', (f, i) => `<div class="res" id="res-meta-${i}"></div>`)}</div>`;
+  }
+  function resMetas() {
+    E.metas.forEach((m, i) => {
+      const el = document.getElementById('res-meta-' + i); if (!el) return;
+      if (!(m.monto > 0)) { el.innerHTML = '<p class="nota">Poné cuánto necesitás.</p>'; return; }
+      const p = A.planMeta(m);
+      el.innerHTML = `<div class="barra" style="margin:8px 0"><i style="width:${p.avance * 100}%"></i></div>` +
+        lineas([['Te falta', plata(p.falta)], ['Apartá por mes', plata(p.porMes), 'total']]) +
+        (p.falta === 0 ? '<p class="pos"><b>¡Meta cumplida!</b> Elegí la próxima.</p>' : '') +
+        (p.hitos.length && p.falta > 0 ? `<p class="nota">Llegaste al ${Math.round(p.hitos[p.hitos.length - 1] * 100)}%: date el gusto que elegiste (día 27).</p>` : '');
+    });
+  }
+
+  function pantallaContador() {
+    return `<h1>Contador</h1>
+      <div class="card hero"><div class="etq">Ahorrado en estos 30 días</div><div class="num" id="res-total"></div></div>
+      <div class="card"><p class="sub">Cada cosa que ahorres: una venta, el redondeo, la heladera, una baja.</p>
+        ${lista('registros', [{ k: 'motivo', tipo: 'txt', ph: 'Vendí el cochecito' }, { k: 'monto', titulo: 'Monto', ph: '50.000' }], 'ahorro')}</div>`;
+  }
+  function resContador() { const el = document.getElementById('res-total'); if (el) el.textContent = plata(A.totalAhorrado(E.registros)); }
+
+  function pantallaHerramientas() {
+    return `<h1>Herramientas</h1>
+      <div class="card"><h2>¿Qué porcentaje ahorrar? <span class="sub">(días 9 y 25)</span></h2>
+        <div class="dos">${campo('cobro', 'Lo que cobrás por mes', '900.000')}${campo('pctPropio', 'Tu porcentaje', '5')}</div><div id="res-pct"></div></div>
+      <div class="card"><h2>El aumento que no se gasta <span class="sub">(día 12)</span></h2>
+        ${campo('aumento', 'De cuánto fue tu aumento', '60.000')}<div id="res-aumento"></div></div>
+      <div class="card"><h2>El vuelto que no ves <span class="sub">(día 4)</span></h2>
+        <p class="sub">Cargá lo que gastaste hoy. La app redondea al millar de arriba.</p>
+        ${lista('redondeo', [{ k: 'monto', ph: '7.300' }], 'gasto')}<div id="res-redondeo"></div></div>
+      <div class="card"><h2>La regla de las 48 horas <span class="sub">(día 13)</span></h2>
+        ${lista('espera', [{ k: 'que', tipo: 'txt', ph: 'Zapatillas' }], 'compra en espera', (f) => `<p class="estado" data-espera="${esc(f.desde)}"></p>`)}</div>
+      <div class="card"><h2>Regalos con tope <span class="sub">(día 19)</span></h2>
+        ${lista('cumples', [{ k: 'nombre', tipo: 'txt', ph: 'Cumple de mamá' }, { k: 'monto', titulo: 'Regalo', ph: '30.000' }], 'cumpleaños')}<div id="res-cumples"></div></div>
+      <div class="card"><h2>El mes caro <span class="sub">(día 26)</span></h2>
+        ${lista('mesesCaros', [{ k: 'nombre', tipo: 'txt', ph: 'Marzo: útiles y matrícula' }, { k: 'monto', titulo: 'Gasto de más', ph: '150.000' }], 'mes caro')}<div id="res-caros"></div></div>`;
+  }
+  function resHerramientas() {
+    const set = (id, h) => { const el = document.getElementById(id); if (el) el.innerHTML = h; };
+    const t = A.tablaPorcentajes(E.cobro);
+    set('res-pct', E.cobro > 0 ? lineas(t.map(x => [`El ${x.pct}%`, `${plata(x.porMes)} por mes · ${plata(x.porAnio)} al año`]).concat(E.pctPropio > 0 ? [[`Tu ${E.pctPropio}%`, plata(A.porcentaje(E.cobro, E.pctPropio)) + ' por mes', 'total']] : [])) : '<p class="nota">Cargá lo que cobrás para comparar.</p>');
+    const m = A.mitadDelAumento(E.aumento);
+    set('res-aumento', E.aumento > 0 ? lineas([['A tu meta', plata(m.aMeta), 'total'], ['Para vos, sin culpa', plata(m.paraVos)]]) : '');
+    set('res-redondeo', lineas([['Para pasar a tu meta', plata(A.redondeo(E.redondeo.map(x => x.monto))), 'total']]));
+    document.querySelectorAll('[data-espera]').forEach(el => {
+      const h = Math.max(0, 48 - (Date.now() - new Date(el.dataset.espera).getTime()) / 3600000);
+      el.innerHTML = h === 0 ? '<span class="pos">Ya pasaron las 48 horas: ¿la seguís queriendo?</span>' : `<span class="sub">Faltan ${Math.ceil(h)} horas para decidir.</span>`;
+    });
+    const c = A.apartadoMensual(E.cumples);
+    set('res-cumples', lineas([['Total del año', plata(c.total)], ['Apartá por mes', plata(c.porMes), 'total']]));
+    const k = A.apartadoMensual(E.mesesCaros);
+    set('res-caros', lineas([['Total de los meses caros', plata(k.total)], ['Apartá por mes', plata(k.porMes), 'total']]));
+  }
+
+  function vistaHerr(nombre) {
+    const v = { metas: [pantallaMetas, resMetas], contador: [pantallaContador, resContador], herramientas: [pantallaHerramientas, resHerramientas] }[nombre];
+    if (!v) { location.hash = '#/inicio'; return; }
+    app.innerHTML = cabecera(`<a class="volver" href="#/inicio">← Inicio</a>`) + tabs(nombre) + v[0]();
+    resultados = v[1]; resultados();
+  }
+
+  // ---------- Navegación ----------
+  function render() {
+    resultados = null;
+    const h = location.hash.replace(/^#\/?/, '').split('/');
+    if (h[0] === 'dia') vistaDia(parseInt(h[1], 10));
+    else if (h[0] === 'h') vistaHerr(h[1]);
+    else vistaInicio();
+    window.scrollTo(0, 0);
+  }
+  function redibujar() { const y = window.scrollY; render(); window.scrollTo(0, y); }
+  function toast(t) {
+    document.querySelectorAll('.toast').forEach(x => x.remove());
+    const el = document.createElement('div'); el.className = 'toast'; el.textContent = t;
+    document.body.appendChild(el); setTimeout(() => el.remove(), 3200);
+  }
+
+  app.addEventListener('input', e => {
+    const el = e.target; const ruta = el.dataset.path; if (!ruta) return;
+    escribir(ruta, el.dataset.tipo === 'num' ? aNumero(el.value) : el.value);
+    guardar(); if (resultados) resultados();
+  });
+  app.addEventListener('change', e => { const el = e.target; if (el.dataset.tipo === 'num' && el.value) el.value = verNum(aNumero(el.value)); });
+  let borrarArmado = false;
+  app.addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    if (b.dataset.agregar) { E[b.dataset.agregar].push(NUEVAS[b.dataset.agregar]()); guardar(); redibujar(); return; }
+    if (b.dataset.quitar) { const p = b.dataset.quitar.split('.'); E[p[0]].splice(Number(p[1]), 1); guardar(); redibujar(); return; }
+    const a = b.dataset.accion;
+    if (a === 'hecho') {
+      const n = Number(b.dataset.dia);
+      if (E.hechos[n]) delete E.hechos[n];
+      else { E.hechos[n] = new Date().toISOString(); const d = CONTENIDO.dias[n - 1]; toast(d.medalla ? '🏅 Medalla: ' + d.medalla : '✓ Día ' + n + ' hecho'); }
+      guardar();
+      if (E.hechos[n] && n < TOTAL) location.hash = '#/inicio'; else render();
+    } else if (a === 'anotar') {
+      const inp = document.getElementById('rapido'); const monto = aNumero(inp.value);
+      if (monto > 0) {
+        const n = Number(b.dataset.dia);
+        E.registros.push({ motivo: 'Día ' + n + ': ' + CONTENIDO.dias[n - 1].titulo, monto });
+        guardar(); inp.value = ''; toast('Sumado: ' + plata(monto) + '. Total: ' + plata(A.totalAhorrado(E.registros)));
+      }
+    } else if (a === 'borrar') {
+      if (!borrarArmado) { borrarArmado = true; b.textContent = 'Tocá de nuevo para borrar todo'; setTimeout(() => { borrarArmado = false; b.textContent = 'Borrar mis datos'; }, 4000); return; }
+      E = inicial(); guardar(); borrarArmado = false; render(); toast('Listo, empezás de cero');
+    }
+  });
+  window.addEventListener('hashchange', render);
+  render();
+})();
+</script>
+</body>
+</html>
